@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.13",
+    "lodash-es": "^4.17.21",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
