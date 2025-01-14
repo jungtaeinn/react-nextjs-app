@@ -1,4 +1,4 @@
-# jungtaeinn/react-nextjs-app
+# @jungtaeinn/react-nextjs-app
 
 > This project is a Next.js-based React app.
 
@@ -13,6 +13,8 @@
 ![TanStack](https://img.shields.io/badge/TanStack-5-000000?style=flat-square&logoColor=white)
 ![Storybook](https://img.shields.io/badge/Storybook-6-FF4785?style=flat-square&logo=Storybook&logoColor=white)
 
+`TBD...`
+
 ## Getting Started
 
 1. run the development server:
@@ -20,4 +22,11 @@
     npm run dev
     ```
 2. open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-3. you can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+## Documentation
+`TBD...`
+
+
+## Authors
+
+- Jungtaeinn ([@jungtaeinn](https://www.linkedin.com/in/jungtaeinn5493))
