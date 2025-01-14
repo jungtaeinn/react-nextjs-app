@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.64.1",
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21",
     "motion": "^11.18.0",
