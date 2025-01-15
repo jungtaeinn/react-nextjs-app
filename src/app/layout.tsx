@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Provider from '@/common/components/provider';
+import Provider from '../common/provider';
 
 /**
  * @description RootLayout은 HTML의 루트 레이아웃을 정의합니다.
