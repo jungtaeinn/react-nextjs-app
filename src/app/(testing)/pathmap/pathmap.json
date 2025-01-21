@@ -1,5 +1,16 @@
 [
   {
+    "title": "Pathmap",
+    "options": {
+      "isRequiredLogin": false
+    },
     "path": "/pathmap"
+  },
+  {
+    "title": "Playground",
+    "options": {
+      "isRequiredLogin": false
+    },
+    "path": "/playground"
   }
 ]
