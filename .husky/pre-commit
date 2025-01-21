@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+echo "===== Running lint-staged pre-commit ====="
+pnpm dlx lint-staged
+echo "==== End lint-staged pre-commit ===="

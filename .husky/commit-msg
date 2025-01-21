@@ -1,0 +1,65 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Commit message file
+COMMIT_MSG_FILE=$1
+
+# Read the commit message
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Define regex patterns
+JIRA_ISSUE_PATTERN="^(\[APM-[0-9]+\])+ .+"
+TYPE_PATTERN="^(feat|fix|docs|style|refactor|test|chore): .+"
+
+echo "=========== Running commit-msg ==========="
+
+# 머지 커밋 검증 제외
+if git rev-parse --verify MERGE_HEAD >/dev/null; then
+    echo "[pass] merge commit"
+    echo "=========== End commit-msg ==========="
+    exit 0
+fi
+
+# 커밋 메시지가 비어있는지 확인
+if [ -z "$COMMIT_MSG" ]; then
+    echo "ERROR: Commit Message를 입력해 주세요."
+    echo "예1) [APM-XXX] OOO 개선 건"
+    echo "예2) fix: OOO 버그 수정"
+    echo "=========== End commit-msg ==========="
+    exit 1
+# 커밋 메시지가 패턴에 맞는지 확인
+elif ! echo "$COMMIT_MSG" | grep -Eq "$JIRA_ISSUE_PATTERN" && ! echo "$COMMIT_MSG" | grep -Eq "$TYPE_PATTERN"; then
+    echo "ERROR: Commit Message 형식을 확인해 주세요. 'TYPE' 또는 지라 이슈와 함께 작성해야 합니다."
+    echo "예1) [APM-XXX] OOO 개선 건"
+    echo "예2) fix: OOO 버그 수정"
+    echo " -------------------------------------------------"
+    echo "   TYPE     | 설명                                 "
+    echo " -------------------------------------------------"
+    echo "   feat     | 기능 추가                             "
+    echo "   fix      | 버그 수정                             "
+    echo "   docs     | 문서 작업                             "
+    echo "   style    | 포맷팅(세미콜론 누락 등 코드 변경이 없는 경우) "
+    echo "   refactor | 리펙터링                              "
+    echo "   test     | 테스트                               "
+    echo "   chore    | 관리 (핵심적이지 않은 일)                 "
+    echo " -------------------------------------------------"
+    echo "=========== End commit-msg ==========="
+    exit 1
+fi
+
+
+# Get the current branch name
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Extract the APM-XXX pattern from the branch name
+BRANCH_ISSUE=$(echo "$CURRENT_BRANCH" | grep -oE "APM-[0-9]+" || echo "")
+
+# 브랜치명에 이슈 번호가 있고 커밋 메시지에 동일한 이슈 번호가 없으면 맨 앞에 추가 (예2 롤일 경우 제외)
+if [ -n "$BRANCH_ISSUE" ] && ! echo "$COMMIT_MSG" | grep -q "$BRANCH_ISSUE" && ! echo "$COMMIT_MSG" | grep -Eq "$TYPE_PATTERN"; then
+    COMMIT_MSG="[$BRANCH_ISSUE] $COMMIT_MSG"
+    echo "$COMMIT_MSG" > "$COMMIT_MSG_FILE"
+fi
+
+# Success commit
+echo "=========== End commit-msg ==========="
+exit 0
