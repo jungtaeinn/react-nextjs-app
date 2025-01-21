@@ -5,8 +5,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 443 --experimental-https",
-    "build": "next build",
+    "dev": "pnpm run pathmap && next dev --turbopack -p 443 --experimental-https",
+    "build": "pnpm run pathmap && next build",
     "start": "next start",
     "prepare": "husky",
     "lint": "next lint --max-warnings 0",
